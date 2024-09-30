@@ -28,14 +28,12 @@ app.post('/register', async (req, res) => {
     }
   
     try {
-      // Create a new user
+      
       const user = await User.create({ name });
-  
-      // Create a new address associated with the user
       await Address.create({ userId: user.id, address });
       console.log(`Name: ${name}, Address: ${address}`);
-  
       return res.status(201).json({ message: 'User registered successfully.' });
+      
     } catch (error) {
       console.error('Error registering user:', error); // Log the full error
       if (error.errors) {
@@ -43,8 +41,6 @@ app.post('/register', async (req, res) => {
       }
       return res.status(500).json({ message: 'An error occurred while registering the user.' });
     }
-
-    
 
   });
   
@@ -66,8 +62,6 @@ app.get('/users', async (req, res) => {
     res.status(500).json({ message: 'An error occurred while fetching users.' });
   }
 });
-
-// Your other endpoints and server start logic...
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
